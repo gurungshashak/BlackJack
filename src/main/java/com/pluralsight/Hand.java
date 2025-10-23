@@ -23,7 +23,7 @@ public class Hand {
             card.flip(); // turn the card over to see the value
             value += card.getPointValue();
             if(card.getValue().equals("A")){
-                A++;
+                A = 11;
             }
             card.flip(); // hide the card again
         }

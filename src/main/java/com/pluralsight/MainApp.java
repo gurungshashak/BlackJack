@@ -38,36 +38,60 @@ public class MainApp {
         System.out.println(player2Name + " hand is worth " + handValue);
 
         while(true){
-            System.out.print(player1Name + " Would You Like To Hit or Stay (H/S): ");
+            Card card = deck.deal();
+
+            System.out.print(player1Name + " Would you Like to Stay or Hit(h/s): ");
             String player1Choice = input.nextLine().toUpperCase();
+            System.out.print(player2Name + " Would you Like to Hit(h/s): ");
+            String player2Choice = input.nextLine().toLowerCase();
 
-            System.out.print(player2Name + " Would You Like To Hit or Stay (H/S): ");
-            String player2Choice = input.nextLine().toUpperCase();
-
-            Card card1 = deck.deal();
-
-            if(player1Choice.equals("H")){
-                player1Hand.deal(card1);
-            }else if(player1Choice.equals("S")){
-                break;
-            }
-
-            if(player2Choice.equals("H")){
-                player2Hand.deal(card1);
-            }else if(player2Choice.equals("S")){
-                break;
-            }
+            boolean player1Hits = player1Choice.equals("");
+            boolean player2Hits = player2Choice.equals("");
 
             int player1Value = player1Hand.getValue();
-            System.out.println(player1Name + " hand is worth " + player1Value);
             int player2Value = player2Hand.getValue();
-            System.out.println(player2Name + " hand is worth " + player2Value);
 
-            if(player1Hand.getValue() >= 21) break;
-            if(player2Hand.getValue() >= 21) break;
+            if(player1Value == 21 && player2Value == 21){
+                System.out.println(player1Name + " Hand Worth Is " + player1Value);
+                System.out.println(player2Name + " Hand Worth Is " + player2Value);
+                System.out.println("Its A Draw!!! Run It Again!!!");
+                break;
+            }else if(player1Value == 21 ){
+                System.out.println(player1Name + " BlackJack!!");
+                player1Hits = false;
+            }else if(player2Value == 21 ){
+                System.out.println(player2Name + " BlackJack!!");
+                player2Hits = false;
+            }
+
+            if(player1Choice.equalsIgnoreCase("H")){
+                player1Hand.deal(card);
+            } if(player1Choice.equalsIgnoreCase("S")){
+                player1Hits = false;
+            }
+            if(player2Choice.equalsIgnoreCase("H")){
+                player2Hand.deal(card);
+            }if(player2Choice.equalsIgnoreCase("S")){
+                player2Hits = false;
+            }
+            if(player1Value == player2Value ){
+                System.out.println(player1Name + " Hand Worth Is " + player1Value);
+                System.out.println(player2Name + " Hand Worth Is " + player2Value);
+                System.out.println("Its A Draw!!! Run It Again!!!");
+                break;
+            }
+
+            if(player1Value > player2Value){
+                System.out.println(player1Name + " Hand Worth Is " + player1Value);
+                System.out.println(player2Name + " Hand Worth Is " + player2Value + "\n");
+                System.out.println(player1Name + " Has Won!!");
+            }else if(player1Value < player2Value){
+                System.out.println(player1Name + " Hand Worth Is " + player1Value);
+                System.out.println(player2Name + " Hand Worth Is " + player2Value + "\n");
+                System.out.println(player1Name + " Has Won!!");
+            }
 
         }
-
 
     }
     public static void homeScreen(){
